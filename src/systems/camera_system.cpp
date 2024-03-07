@@ -28,7 +28,6 @@ bool CameraSystem::update(
   glUniformMatrix4fv(viewLocation, 1, GL_FALSE, glm::value_ptr(view));
 
   handleKeyboardInput(pos, eulers, right, up, forwards);
-  handleMouseInput(eulers);
   glfwPollEvents();
 
   return glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS;
@@ -71,8 +70,4 @@ void CameraSystem::handleKeyboardInput(glm::vec3 &pos, glm::vec3 &eulers,
     pos = {-1.25f, 2.0f, 1.25f};
     eulers = {1.0f, 1.0f, 0.0f};
   }
-}
-
-void CameraSystem::handleMouseInput(glm::vec3 &eulers) {
-  // Look weird (IDK, how to fix)
 }
