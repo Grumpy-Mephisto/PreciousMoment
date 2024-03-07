@@ -36,7 +36,7 @@ void Factory::make_obj(glm::vec3 position, glm::vec3 eulers) {
   preTransform =
       glm::rotate(preTransform, glm::radians(90.0f), {0.0f, 1.0f, 0.0f});
   RenderComponent render = make_obj_mesh("../models/ghost.obj", preTransform);
-  render.material = make_texture("../textures/base.png");
+  render.material = make_texture("../textures/ghost_base.png");
   renderComponents[entities_made++] = render;
 }
 

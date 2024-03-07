@@ -2,7 +2,6 @@
 
 CameraSystem::CameraSystem(unsigned int shader, GLFWwindow *window) {
   this->window = window;
-
   glUseProgram(shader);
   viewLocation = glGetUniformLocation(shader, "view");
 }
@@ -26,43 +25,43 @@ bool CameraSystem::update(
   up = glm::normalize(glm::cross(right, forwards));
 
   glm::mat4 view = glm::lookAt(pos, pos + forwards, up);
-
   glUniformMatrix4fv(viewLocation, 1, GL_FALSE, glm::value_ptr(view));
 
-  // Keys
+  handleKeyboardInput(pos, eulers, right, up, forwards);
+  handleMouseInput(eulers);
+  glfwPollEvents();
+
+  return glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS;
+}
+
+void CameraSystem::handleKeyboardInput(glm::vec3 &pos, glm::vec3 &eulers,
+                                       const glm::vec3 &right,
+                                       const glm::vec3 &up,
+                                       const glm::vec3 &forwards) {
   glm::vec3 dPos = {0.0f, 0.0f, 0.0f};
-  if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS) {
-    dPos.x += 1.0f;
-  }
-  if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS) {
-    dPos.y -= 1.0f;
-  }
-  if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS) {
-    dPos.x -= 1.0f;
-  }
-  if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS) {
-    dPos.y += 1.0f;
-  }
-  if (glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS) {
-    dPos.z += 1.0f;
-  }
-  if (glfwGetKey(window, GLFW_KEY_LEFT_CONTROL) == GLFW_PRESS) {
-    dPos.z -= 1.0f;
-  }
-  if (glfwGetKey(window, GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS) {
+  if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
+    dPos += forwards;
+  if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
+    dPos += right;
+  if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
+    dPos -= forwards;
+  if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
+    dPos -= right;
+  if (glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS)
+    dPos += global_up;
+  if (glfwGetKey(window, GLFW_KEY_LEFT_CONTROL) == GLFW_PRESS)
+    dPos -= global_up;
+  if (glfwGetKey(window, GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS)
     dPos *= 2.0f;
-  }
-  if (glfwGetKey(window, GLFW_KEY_LEFT_ALT) == GLFW_PRESS) {
+  if (glfwGetKey(window, GLFW_KEY_LEFT_ALT) == GLFW_PRESS)
     dPos *= 0.5f;
-  }
-  if (glfwGetKey(window, GLFW_KEY_Q) == GLFW_PRESS) {
-    eulers.z += 0.5f;
-  }
-  if (glfwGetKey(window, GLFW_KEY_E) == GLFW_PRESS) {
-    eulers.z -= 0.5f;
-  }
+  if (glfwGetKey(window, GLFW_KEY_Q) == GLFW_PRESS)
+    eulers.z += 1.0f;
+  if (glfwGetKey(window, GLFW_KEY_E) == GLFW_PRESS)
+    eulers.z -= 1.0f;
+
   if (glm::length(dPos) > 0.1f) {
-    dPos = glm::normalize(dPos) * 1.f;
+    dPos = glm::normalize(dPos) * 1.0f;
     pos += 0.01f * dPos.x * forwards;
     pos += 0.01f * dPos.y * right;
     pos += 0.01f * dPos.z * up;
@@ -72,12 +71,8 @@ bool CameraSystem::update(
     pos = {-1.25f, 2.0f, 1.25f};
     eulers = {1.0f, 1.0f, 0.0f};
   }
+}
 
-  if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS) {
-    return true;
-  }
-
-  glfwPollEvents();
-
-  return false;
+void CameraSystem::handleMouseInput(glm::vec3 &eulers) {
+  // Look weird (IDK, how to fix)
 }
