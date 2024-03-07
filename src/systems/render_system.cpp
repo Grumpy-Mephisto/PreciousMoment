@@ -25,7 +25,7 @@ void RenderSystem::update(
     glUniformMatrix4fv(modelLocation, 1, GL_FALSE, glm::value_ptr(model));
 
     // spin the object
-    float speed = 0.025f;
+    float speed = 0.05f;
     transform.eulers.z += speed;
 
     if (renderable.material != 0)
