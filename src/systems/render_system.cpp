@@ -18,9 +18,21 @@ void RenderSystem::update(
     model = glm::translate(model, transform.position);
     model = glm::rotate(model, glm::radians(transform.eulers.z),
                         {0.0f, 0.0f, 1.0f});
+    model = glm::rotate(model, glm::radians(transform.eulers.y),
+                        {0.0f, 1.0f, 0.0f});
+    model = glm::rotate(model, glm::radians(transform.eulers.x),
+                        {1.0f, 0.0f, 0.0f});
     glUniformMatrix4fv(modelLocation, 1, GL_FALSE, glm::value_ptr(model));
 
-    glBindTexture(GL_TEXTURE_2D, renderable.material);
+    // spin the object
+    float speed = 0.025f;
+    transform.eulers.z += speed;
+
+    if (renderable.material != 0)
+      glBindTexture(GL_TEXTURE_2D, renderable.material);
+    else
+      glBindTexture(GL_TEXTURE_2D, 0);
+
     glBindVertexArray(renderable.VAO);
     glDrawArrays(GL_TRIANGLES, 0, renderable.vertexCount);
   }
