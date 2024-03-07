@@ -6,7 +6,8 @@
         <sub>Created by <a href="https://pungrumpy.com">Pungrumpy</a></sub>
     </p>
     <p>
-        <img src="./preview.png" alt="Preview" />
+        <!-- <img src="./.github/images/preview.mp4" alt="Preview" /> -->
+        <img src="./.github/images/preview.gif" alt="Preview" width="50%" height="auto" />
     </p>
     <p>
         <a href="https://img.shields.io/badge/OpenGL-3D%20Model%20Viewer-blue?style=for-the-badge&logo=opengl">
