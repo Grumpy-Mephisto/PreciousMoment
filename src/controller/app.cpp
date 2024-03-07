@@ -86,7 +86,7 @@ void App::set_up_opengl() {
   glCullFace(GL_BACK);
 
   shader =
-      make_shader("../src/shaders/vertex.glsl", "../src/shaders/fragment.glsl");
+      make_shader("../src/shaders/shader.vert", "../src/shaders/shader.frag");
 
   glUseProgram(shader);
   unsigned int projLocation = glGetUniformLocation(shader, "projection");
