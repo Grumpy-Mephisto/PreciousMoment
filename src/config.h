@@ -17,5 +17,3 @@
 #include <string>
 
 std::vector<std::string> split(std::string line, std::string delimiter);
-
-enum class ObjectType { eModel };
