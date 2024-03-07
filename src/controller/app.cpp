@@ -30,7 +30,26 @@ void App::run() {
     }
 
     renderSystem->update(transformComponents, renderComponents);
+
+    handle_frame_timing();
   }
+}
+
+void App::handle_frame_timing() {
+  currentTime = glfwGetTime();
+  double delta = currentTime - lastTime;
+
+  if (delta >= 1) {
+    int framerate{std::max(1, int(numFrames / delta))};
+    std::stringstream title;
+    title << "Precious Moment! | " << framerate << " FPS";
+    glfwSetWindowTitle(window, title.str().c_str());
+    lastTime = currentTime;
+    numFrames = -1;
+    frameTime = float(1000.0 / framerate);
+  }
+
+  ++numFrames;
 }
 
 void App::set_up_glfw() {

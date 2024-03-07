@@ -29,6 +29,7 @@ public:
 
 private:
   void set_up_glfw();
+  void handle_frame_timing();
 
   GLFWwindow *window;
 
@@ -38,4 +39,9 @@ private:
   MotionSystem *motionSystem;
   CameraSystem *cameraSystem;
   RenderSystem *renderSystem;
+
+  // Timing
+  double lastTime, currentTime;
+  int numFrames;
+  float frameTime;
 };
