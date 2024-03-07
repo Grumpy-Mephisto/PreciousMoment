@@ -1,1 +1,5 @@
-Dependencies/ filter=lfs diff=lfs merge=lfs -text
+Dependencies/glad filter=lfs diff=lfs merge=lfs -text
+Dependencies/GLFW filter=lfs diff=lfs merge=lfs -text
+Dependencies/glm filter=lfs diff=lfs merge=lfs -text
+Dependencies/KHR filter=lfs diff=lfs merge=lfs -text
+Dependencies/lib filter=lfs diff=lfs merge=lfs -text
