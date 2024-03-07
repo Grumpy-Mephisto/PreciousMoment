@@ -151,7 +151,6 @@ void Factory::read_face(std::vector<std::string> words,
                         std::vector<glm::vec3> &v, std::vector<glm::vec2> &vt,
                         std::vector<glm::vec3> &vn,
                         std::vector<float> &vertices) {
-
   size_t triangleCount = words.size() - 3;
 
   for (size_t i = 0; i < triangleCount; ++i) {
@@ -165,7 +164,6 @@ void Factory::read_corner(std::string description, std::vector<glm::vec3> &v,
                           std::vector<glm::vec2> &vt,
                           std::vector<glm::vec3> &vn,
                           std::vector<float> &vertices) {
-
   std::vector<std::string> v_vt_vn = split(description, "/");
 
   // position
