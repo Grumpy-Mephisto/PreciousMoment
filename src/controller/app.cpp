@@ -59,8 +59,21 @@ void App::set_up_glfw() {
   glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
   glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GLFW_TRUE);
 
+  GLFWmonitor *monitor = glfwGetPrimaryMonitor();
+  const GLFWvidmode *mode = glfwGetVideoMode(monitor);
+
+  float xPosition = (mode->width - WINDOW_WIDTH) / 2;
+  float yPosition = (mode->height - WINDOW_HEIGHT) / 2;
+
   window = glfwCreateWindow(WINDOW_WIDTH, WINDOW_HEIGHT, "Precious Moment!",
                             NULL, NULL);
+
+  if (window == NULL) {
+    std::cout << "Failed to create GLFW window" << std::endl;
+    glfwTerminate();
+  }
+
+  glfwSetWindowPos(window, xPosition, yPosition);
   glfwMakeContextCurrent(window);
   glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_HIDDEN);
 
