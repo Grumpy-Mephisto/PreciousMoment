@@ -16,6 +16,7 @@ private:
   unsigned int viewLocation;
   glm::vec3 global_up = {0.0f, 0.0f, 1.0f};
   GLFWwindow *window;
+  float mouseSensitivity = 0.1f;
 
   void handleKeyboardInput(glm::vec3 &pos, glm::vec3 &eulers,
                            const glm::vec3 &right, const glm::vec3 &up,
