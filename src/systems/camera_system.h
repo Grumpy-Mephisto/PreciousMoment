@@ -20,4 +20,6 @@ private:
   void handleKeyboardInput(glm::vec3 &pos, glm::vec3 &eulers,
                            const glm::vec3 &right, const glm::vec3 &up,
                            const glm::vec3 &forwards);
+
+  void handleMouseInput(glm::vec3 &eulers);
 };

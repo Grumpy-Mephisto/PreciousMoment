@@ -28,6 +28,8 @@ bool CameraSystem::update(
   glUniformMatrix4fv(viewLocation, 1, GL_FALSE, glm::value_ptr(view));
 
   handleKeyboardInput(pos, eulers, right, up, forwards);
+  handleMouseInput(
+      eulers); // Strange behavior when moving mouse on PC (Windows)
   glfwPollEvents();
 
   return glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS;
@@ -70,4 +72,30 @@ void CameraSystem::handleKeyboardInput(glm::vec3 &pos, glm::vec3 &eulers,
     pos = {-1.25f, 2.0f, 1.25f};
     eulers = {1.0f, 1.0f, 0.0f};
   }
+}
+
+void CameraSystem::handleMouseInput(glm::vec3 &eulers) {
+  double mouseX, mouseY;
+  glfwWaitEvents();
+  glfwGetCursorPos(window, &mouseX, &mouseY);
+  glfwSetCursorPos(window, 400.0f, 300.0f);
+
+  if (glfwRawMouseMotionSupported())
+    glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+  else
+    glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+
+  glm::vec3 dEulers = {0.0f, 0.0f, 0.0f};
+  float mouseSensitivity = -0.1f;
+
+  dEulers.z = mouseSensitivity * static_cast<float>(mouseX - 400.0f);
+  dEulers.y = mouseSensitivity * static_cast<float>(mouseY - 300.0f);
+
+  eulers.y = fminf(89.0f, fmax(-89.0f, eulers.y + dEulers.y));
+  eulers.z += dEulers.z;
+
+  if (eulers.z > 360.0f)
+    eulers.z -= 360.0f;
+  else if (eulers.z < 0.0f)
+    eulers.z += 360.0f;
 }
