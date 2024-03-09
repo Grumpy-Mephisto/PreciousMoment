@@ -21,7 +21,7 @@ void main(){
     // Transform vertex position to light space for shadow mapping
     fragLightSpacePos=lightSpaceMatrix*vec4(vertexPos,1.);
     
-    // Pass other vertex data to the fragment shader
+    // Pass texture coordinates to fragment shader
     fragTexCoord=vertexTexCoord;
     fragNormal=normalize((model*vec4(vertexNormal,0.)).xyz);
     fragPos=(model*vec4(vertexPos,1.)).xyz;

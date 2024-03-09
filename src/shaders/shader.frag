@@ -30,7 +30,7 @@ void main(){
     float shadow=textureProj(shadowMap,fragLightSpacePos+vec4(0.,0.,shadowBias,0.));
     float shadowFactor=mix(.5,1.,step(0.,shadow));// Smoothly interpolate based on shadow value
     
-    // Combine diffuse, specular, and shadow components
+    // Combine diffuse, specular, and shadow components (with shadow factor)
     vec3 finalColor=shadowFactor*(diffuseColor+.5*specularColor);
     
     // Output final color
